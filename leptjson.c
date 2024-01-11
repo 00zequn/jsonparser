@@ -1,14 +1,19 @@
 #include "leptjson.h"
 
+#define EXPECT(c, ch)         \
+  do {                        \
+    assert(*c->json == (ch)); \
+    c->json++;                \
+  } while (0)
 int lept_parse(lept_value* v, const char* json);
 
-// ws = *(%x20 | %x09 | %x0A | %x 0D)
+/*ws = *(%x20 | %x09 | %x0A | %x 0D)*/
 static void lept_parse_white_space(lept_context* c) {
   const char* p = c->json;
   while (*p == ' ' || *p == '\t' || *p == '\r') p++;
   c->json = p;
 }
-// null = "null"
+/*null = "null"*/
 static int lept_parse_null(lept_context* c, lept_value* v) {
   EXPECT(c, 'n');
   if (c->json[0] != 'u' || c->json[1] != 'l' || c->json[2] != 'l')
@@ -62,4 +67,9 @@ int lept_parse(lept_value* v, const char* json) {
     if (*c.json != '\0') ret = LEPT_PARSE_ROOT_NOT_SINGULAR;
   }
   return ret;
+}
+
+lept_type lept_get_type(const lept_value* v) {
+  assert(v != NULL);
+  return v->type;
 }
