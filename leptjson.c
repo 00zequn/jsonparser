@@ -2,13 +2,13 @@
 
 int lept_parse(lept_value* v, const char* json);
 
-// ws = *(%x20 | %x09 | %x0A | %x 0D)
+/* ws = *(%x20 | %x09 | %x0A | %x 0D) */
 static void lept_parse_white_space(lept_context* c) {
   const char* p = c->json;
   while (*p == ' ' || *p == '\t' || *p == '\r') p++;
   c->json = p;
 }
-// null = "null"
+/* null = "null" */
 static int lept_parse_null(lept_context* c, lept_value* v) {
   EXPECT(c, 'n');
   if (c->json[0] != 'u' || c->json[1] != 'l' || c->json[2] != 'l')
