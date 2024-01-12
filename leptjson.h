@@ -1,7 +1,6 @@
 #ifndef LEPTJSON_H_
 #define LEPTJSON_H_
 #include <assert.h>
-#define NULL 0
 /*json element type*/
 typedef enum {
   LEPT_NULL,
