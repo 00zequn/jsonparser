@@ -1,7 +1,6 @@
-#ifndef LEPTJSON_H_
-#define LEPTJSON_H_
-#include <assert.h>
-/*json element type*/
+#ifndef LEPTJSON_H__
+#define LEPTJSON_H__
+
 typedef enum {
   LEPT_NULL,
   LEPT_FALSE,
@@ -12,14 +11,11 @@ typedef enum {
   LEPT_OBJECT
 } lept_type;
 
-/* json elemnt value */
 typedef struct {
-  /*number*/
   double n;
   lept_type type;
 } lept_value;
 
-/* test expectvalue */
 enum {
   LEPT_PARSE_OK = 0,
   LEPT_PARSE_EXPECT_VALUE,
@@ -28,9 +24,10 @@ enum {
   LEPT_PARSE_NUMBER_TOO_BIG
 };
 
-/* json context*/
-typedef struct {
-  const char* json;
-} lept_context;
+int lept_parse(lept_value* v, const char* json);
 
-#endif
+lept_type lept_get_type(const lept_value* v);
+
+double lept_get_number(const lept_value* v);
+
+#endif /* LEPTJSON_H__ */
